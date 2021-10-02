@@ -18,66 +18,63 @@ class MovieManagerTest {
     private MovieItem tenth = new MovieItem(10, "Брюс всемогущий", "комедия");
     private MovieItem eleventh = new MovieItem(11, "нет", "комедия");
 
-@Test
-    public void shouldGetAll() {
-    manager.save(first);
-    manager.save(second);
-    manager.save(third);
-    manager.save(fourth);
-    manager.save(fifth);
-    manager.save(sixth);
-    manager.save(seventh);
-    manager.save(eighth);
-    manager.save(ninth);
-    manager.save(tenth);
-    MovieItem[] expected = new MovieItem[]{tenth, ninth,eighth,seventh,sixth,fifth, fourth, third,second, first};
-    MovieItem[] actual = manager.getAll();
-    assertArrayEquals(expected, actual);
-}
     @Test
-    public void shouldGetMin() {
+    public void shouldGetAll() {
+        MovieManager manager = new MovieManager(10);
         manager.save(first);
-        MovieItem[] expected = new MovieItem[]{first};
+        manager.save(second);
+        manager.save(third);
+        manager.save(fourth);
+        manager.save(fifth);
+        manager.save(sixth);
+        manager.save(seventh);
+        manager.save(eighth);
+        manager.save(ninth);
+        manager.save(tenth);
+        MovieItem[] expected = new MovieItem[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
         MovieItem[] actual = manager.getAll();
         assertArrayEquals(expected, actual);
     }
-@Test
-    public void shouldGetMoreMin() {
-    manager.save(first);
-    manager.save(second);
-    manager.save(third);
-    manager.save(fourth);
-    manager.save(fifth);
-    MovieItem[] expected = new MovieItem[]{fifth, fourth, third,second, first};
-    MovieItem[] actual = manager.getAll();
-    assertArrayEquals(expected, actual);
-}
-@Test
-    public void shouldGetNone() {
-    MovieItem[] expected = new MovieItem[0];
-    MovieItem[] actual = manager.getAll();
-    assertArrayEquals(expected, actual);
-}
-@Test
-    public void shouldGetMoreLimit() {
-    MovieManager manager = new MovieManager(11);
-    manager.save(first);
-    manager.save(second);
-    manager.save(third);
-    manager.save(fourth);
-    manager.save(fifth);
-    manager.save(sixth);
-    manager.save(seventh);
-    manager.save(eighth);
-    manager.save(ninth);
-    manager.save(tenth);
-    manager.save(eleventh);
-    MovieItem[] expected = new MovieItem[]{eleventh,tenth, ninth,eighth,seventh,sixth,fifth, fourth, third,second, first};
-    MovieItem[] actual = manager.getAll();
-    assertArrayEquals(expected, actual);
-}
+
     @Test
     public void shouldGetLessLimit() {
+        manager.save(first);
+        manager.save(second);
+        manager.save(third);
+        manager.save(fourth);
+        manager.save(fifth);
+        MovieItem[] expected = new MovieItem[]{fifth, fourth, third, second, first};
+        MovieItem[] actual = manager.getAll();
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldGetNone() {
+        MovieItem[] expected = new MovieItem[0];
+        MovieItem[] actual = manager.getAll();
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldGetMoreLimit() {
+        MovieManager manager = new MovieManager(11);
+        manager.save(first);
+        manager.save(second);
+        manager.save(third);
+        manager.save(fourth);
+        manager.save(fifth);
+        manager.save(sixth);
+        manager.save(seventh);
+        manager.save(eighth);
+        manager.save(ninth);
+        manager.save(tenth);
+        MovieItem[] expected = new MovieItem[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
+        MovieItem[] actual = manager.getAll();
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldGetUpToLimit() {
         MovieManager manager = new MovieManager(9);
         manager.save(first);
         manager.save(second);
@@ -88,9 +85,11 @@ class MovieManagerTest {
         manager.save(seventh);
         manager.save(eighth);
         manager.save(ninth);
-        MovieItem[] expected = new MovieItem[]{ninth,eighth,seventh,sixth,fifth, fourth, third,second, first};
+        manager.save(tenth);
+        MovieItem[] expected = new MovieItem[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second};
         MovieItem[] actual = manager.getAll();
         assertArrayEquals(expected, actual);
+
     }
 
 }
